@@ -1,0 +1,11 @@
+fastapi[standard]
+python-multipart
+numpy
+opencv-python
+Pillow
+tensorflow
+ultralytics
+pymongo
+joblib
+xgboost
+scikit-learn
