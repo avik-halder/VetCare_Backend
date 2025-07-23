@@ -3,7 +3,7 @@ python-multipart
 numpy
 opencv-python
 Pillow
-tensorflow==2.13.0
+tensorflow
 ultralytics
 pymongo
 joblib
