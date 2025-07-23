@@ -13,6 +13,8 @@ import pymongo
 import joblib
 import xgboost as xgb
 
+import sys
+print("Python version:", sys.version)
 
 app = FastAPI()
 
