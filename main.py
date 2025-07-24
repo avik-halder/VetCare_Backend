@@ -236,3 +236,33 @@ def predict_latest():
 
     except Exception as e:
         return {"error": str(e)}
+
+
+
+
+from fastapi import Form
+
+@app.post("/predict-image/")
+async def predict_image_api(file: UploadFile = File(...)):
+    try:
+        contents = await file.read()
+        np_arr = np.frombuffer(contents, np.uint8)
+        img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+
+        if img is None:
+            return {"error": "Could not decode image."}
+
+        resized = cv2.resize(img, (224, 224))
+        img_arr = resized.astype("float32") / 255.0
+        img_arr = np.expand_dims(img_arr, axis=0)
+
+        prediction = lumpy_model.predict(img_arr, verbose=0)[0][0]
+        label = "lumpy skin cow" if prediction > 0.5 else "normal cow"
+
+        return {
+            "prediction": label,
+            "confidence": float(prediction)
+        }
+
+    except Exception as e:
+        return {"error": str(e)}
